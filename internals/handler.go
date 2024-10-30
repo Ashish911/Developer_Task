@@ -2,10 +2,8 @@ package internals
 
 import (
 	"context"
-	"fmt"
 	"go_backend/views"
 	"net/http"
-	"sort"
 	"time"
 
 	"github.com/a-h/templ"
@@ -180,103 +178,9 @@ func (app *Config) indexPageHandler() gin.HandlerFunc {
             return
         }
 
-		var currentData *views.TemperatureData
-        if response.CurrentData != nil {
-			current := &views.TemperatureData{
-				DateTime: response.CurrentData.DateTime,
-				Hour: response.CurrentData.Hour,
-				Temperature: response.CurrentData.Temperature,
-				FeelsLike: response.CurrentData.FeelsLike,
-				Weather: string(response.CurrentData.Weather),
-				PrecipitationChance: response.CurrentData.PrecipitationChance,
-				WindSpeed: response.CurrentData.WindSpeed,
-				WindDirection: string(response.CurrentData.WindDirection),
-			} // Safely dereference if not nil
-
-			currentData = current
-        }
-
-		dailyChartData := &views.DailyChartData{
-            Labels:         []string{},
-            TemperatureData: []float64{},
-            FeelsLikeData:  []float64{},
-        }
-
-		for _, data := range response.DailyData.Hours {
-            dailyChartData.Labels = append(dailyChartData.Labels, data.Hour) // Or format data.DateTime
-            dailyChartData.TemperatureData = append(dailyChartData.TemperatureData, data.Temperature)
-            dailyChartData.FeelsLikeData = append(dailyChartData.FeelsLikeData, data.FeelsLike)
-        }
-
-		tomorrow := time.Now().Add(24 * time.Hour).Format("2006-01-02")
-
-		weeklyData := []*views.WeeklyChartData{}
-        for day, dayData := range response.WeeklyData {
-			
-			if day < tomorrow {
-				continue
-			}
-
-            var minTemp, maxTemp, tempSum, windSpeedSum, precipSum float64
-            count := len(dayData.Hours)
-
-            if count == 0 {
-                continue
-            }
-
-            minTemp = dayData.Hours[0].Temperature
-            maxTemp = dayData.Hours[0].Temperature
-
-            for _, hourData := range dayData.Hours {
-                temp := hourData.Temperature
-                windSpeed := hourData.WindSpeed
-                precipChance := hourData.PrecipitationChance
-
-                // Update min and max temperature
-                if temp < minTemp {
-                    minTemp = temp
-                }
-                if temp > maxTemp {
-                    maxTemp = temp
-                }
-
-                // Accumulate for averages
-                tempSum += temp
-                windSpeedSum += windSpeed
-                precipSum += float64(precipChance)
-            }
-
-            avgTemp := tempSum / float64(count)
-            avgWindSpeed := windSpeedSum / float64(count)
-            avgPrecipChance := precipSum / float64(count)
-
-            // Format day for display, e.g., "30 Oct 2024"
-            dayFormatted, _ := time.Parse("2006-01-02", day)
-            formattedDay := dayFormatted.Format("02 Jan 2006")
-
-            dailySummary := &views.WeeklyChartData{
-                Day:                   formattedDay,
-                MinTemp:               minTemp,
-                MaxTemp:               maxTemp,
-                AvgTemp:               avgTemp,
-                AvgWindSpeed:          avgWindSpeed,
-                AvgPrecipitationChance: avgPrecipChance,
-            }
-
-            weeklyData = append(weeklyData, dailySummary)
-        }
-
-		sort.Slice(weeklyData, func(i, j int) bool {
-			day1, err1 := time.Parse("02 Jan 2006", weeklyData[i].Day)
-			day2, err2 := time.Parse("02 Jan 2006", weeklyData[j].Day)
-		
-			if err1 != nil || err2 != nil {
-				fmt.Println("Error parsing date for sorting:", err1, err2)
-				return false
-			}
-		
-			return day1.Before(day2)
-		})
+		currentData := prepareCurrentData(response)
+		dailyChartData := prepareDailyData(response)
+		weeklyData := prepareWeeklyData(response)
 
 		// Assemble the data into a view model
         viewModel := views.TemperatureDataViewModel{
