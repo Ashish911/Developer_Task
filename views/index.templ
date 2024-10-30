@@ -89,10 +89,22 @@ templ Index(data TemperatureDataViewModel) {
                     <div class="w-full">
                         <div class="flex w-full flex-col md:col-span-4">
                             <h2 class="mb-4 text-xl md:text-2xl">
-                            7 Day Forcast
+                            Next 6 Day's Forcast
                             </h2>
                             <div class="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
-                                <div class="bg-white px-6">
+                                <div class="bg-white px-3">
+                                   <div class="py-3 relative">
+                                        <div class="text-center justify-between items-center flex" style="flex-flow: initial;">
+                                            for _, item := range data.WeeklyData {
+                                                @components.WeatherCard(item.Day, 
+                                                fmt.Sprintf("%.2f", item.AvgTemp), 
+                                                fmt.Sprintf("%.2f", item.MaxTemp), 
+                                                fmt.Sprintf("%.2f", item.MinTemp), 
+                                                fmt.Sprintf("%.2f", item.AvgPrecipitationChance), 
+                                                fmt.Sprintf("%.2f", item.AvgWindSpeed))
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
                             </div>  
                         </div>

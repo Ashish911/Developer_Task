@@ -1,13 +1,13 @@
 package components
 
 templ Sidebar() {
-    <div class="w-full flex-none md:w-64">
+    <div class="w-full flex-none md:w-40">
         <div class="flex h-full flex-col px-3 py-4 md:px-2">
           <a
             class="mb-2 flex h-20 items-end justify-start rounded-md bg-black p-4 md:h-40"
             href="/"
           >
-            <div class="w-32 text-white md:w-40">Ashish Dongol Task</div>
+            <div class="w-32 text-white md:w-40">Developer Task</div>
           </a>
           <div
             class="flex grow flex-row justify-between space-x-2 md:flex-col md:space-x-0 md:space-y-2"
@@ -20,14 +20,6 @@ templ Sidebar() {
                 // <svg class="w-6"><!-- HomeIcon SVG here --></svg>
                 <p class="hidden md:block">Temperature</p>
               </a>
-
-            //   <a
-            //     id="stocks"
-            //     class="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-gray-200 hover:text-gray-600 md:flex-none md:justify-start md:p-2 md:px-3"
-            //   >
-            //     // <svg class="w-6"><!-- CommandLineIcon SVG here --></svg>
-            //     <p class="hidden md:block">Stocks</p>
-            //   </a>
             </div>
             <div
               class="hidden h-auto w-full grow rounded-md bg-gray-50 md:block"

@@ -124,7 +124,22 @@ func Index(data TemperatureDataViewModel) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><br><div class=\"w-full\"><div class=\"flex w-full flex-col md:col-span-4\"><h2 class=\"mb-4 text-xl md:text-2xl\">7 Day Forcast</h2><div class=\"flex grow flex-col justify-between rounded-xl bg-gray-50 p-4\"><div class=\"bg-white px-6\"></div></div></div></div></div></div></div>")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><br><div class=\"w-full\"><div class=\"flex w-full flex-col md:col-span-4\"><h2 class=\"mb-4 text-xl md:text-2xl\">Next 6 Day's Forcast</h2><div class=\"flex grow flex-col justify-between rounded-xl bg-gray-50 p-4\"><div class=\"bg-white px-3\"><div class=\"py-3 relative\"><div class=\"text-center justify-between items-center flex\" style=\"flex-flow: initial;\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		for _, item := range data.WeeklyData {
+			templ_7745c5c3_Err = components.WeatherCard(item.Day,
+				fmt.Sprintf("%.2f", item.AvgTemp),
+				fmt.Sprintf("%.2f", item.MaxTemp),
+				fmt.Sprintf("%.2f", item.MinTemp),
+				fmt.Sprintf("%.2f", item.AvgPrecipitationChance),
+				fmt.Sprintf("%.2f", item.AvgWindSpeed)).Render(ctx, templ_7745c5c3_Buffer)
+			if templ_7745c5c3_Err != nil {
+				return templ_7745c5c3_Err
+			}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div></div></div></div></div></div></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

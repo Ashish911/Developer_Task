@@ -2,7 +2,6 @@ package internals
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"go_backend/views"
 	"net/http"
@@ -209,8 +208,15 @@ func (app *Config) indexPageHandler() gin.HandlerFunc {
             dailyChartData.FeelsLikeData = append(dailyChartData.FeelsLikeData, data.FeelsLike)
         }
 
+		tomorrow := time.Now().Add(24 * time.Hour).Format("2006-01-02")
+
 		weeklyData := []*views.WeeklyChartData{}
         for day, dayData := range response.WeeklyData {
+			
+			if day < tomorrow {
+				continue
+			}
+
             var minTemp, maxTemp, tempSum, windSpeedSum, precipSum float64
             count := len(dayData.Hours)
 
@@ -271,15 +277,6 @@ func (app *Config) indexPageHandler() gin.HandlerFunc {
 		
 			return day1.Before(day2)
 		})
-		
-		weeklyDataJSON, err := json.MarshalIndent(weeklyData, "", "  ")
-		if err != nil {
-			fmt.Println("Error marshalling weeklyData:", err)
-			return
-		}
-
-		fmt.Printf("This is weeklyData:\n%s\n", string(weeklyDataJSON))
-		
 
 		// Assemble the data into a view model
         viewModel := views.TemperatureDataViewModel{
