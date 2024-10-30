@@ -1,0 +1,28 @@
+package components
+
+templ DailyChart(labels []string, temperatureData []float64, feelsLikeData []float64) {
+    <div class="w-full md:col-span-4">
+        <div class="rounded-xl bg-gray-50 p-4">
+            <div class="bg-white">
+                <div >
+                    <div class="mx-auto max-w-md px-4 sm:px-7 md:max-w-4xl md:px-6">
+                        <div>
+                            <div class="p-4">
+                                <h2 class="mb-4 text-xl md:text-xl">Temperature Line Chart</h2>
+                                <canvas id="temperatureChart" width="400" height="230"></canvas>
+
+                                <!-- Hidden elements to store JSON data for chart.js -->
+                                <div id="temperatureData" style="display:none;">{templ.JSONString(temperatureData)}</div>
+                                <div id="feelsLikeData" style="display:none;">{templ.JSONString(feelsLikeData)}</div>
+                                <div id="chartLabels" style="display:none;">{templ.JSONString(labels)}</div>
+
+                                <script src="/static/js/charts.js"></script>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

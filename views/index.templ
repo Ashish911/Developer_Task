@@ -1,0 +1,105 @@
+package views
+
+import (
+    // "fmt"
+    "go_backend/views/components"
+    "time"
+	"fmt"
+)
+
+type TemperatureData struct {
+	DateTime             time.Time    
+	Hour                 string  
+	Temperature          float64 
+	FeelsLike            float64 
+	Weather              string  
+	PrecipitationChance  float64 
+	WindSpeed            float64 
+	WindDirection        string  
+}
+
+// type TemperatureDataByDay struct {
+// 	Day    string 
+// 	Hours  []*TemperatureData 
+// }
+
+type DailyChartData struct {
+    Labels []string
+    TemperatureData []float64
+    FeelsLikeData []float64
+}
+
+type WeeklyChartData struct {
+    Day                     string  
+    MinTemp                 float64 
+    MaxTemp                 float64 
+    AvgTemp                 float64
+    AvgWindSpeed            float64 
+    AvgPrecipitationChance  float64 
+}
+
+type TemperatureDataViewModel struct {
+	CurrentData *TemperatureData
+    DailyData *DailyChartData 
+	WeeklyData  []*WeeklyChartData
+}
+
+type OldTemperatureDataViewModel struct {
+	CurrentData *TemperatureData
+    DailyData *DailyChartData     
+	// DailyData   *TemperatureDataByDay
+	// WeeklyData  map[string]*TemperatureDataByDay
+}
+
+
+templ Index(data TemperatureDataViewModel) {
+    <!DOCTYPE html>
+    <html lang="en">
+        @components.Header()
+        <div class="flex h-screen flex-col md:flex-row md:overflow-hidden">
+            @components.Sidebar()
+            <div class="flex-grow p-6 md:overflow-y-auto md:p-12">
+                <div class="container">
+                    <nav aria-label="Breadcrumb" class="mb-6 block">
+                        <ol class="flex text-xl md:text-2xl">
+                            <li class="text-gray-500">
+                            <a href="/">Temperature</a>
+                            </li>
+                        </ol>
+                        <hr class="bg-black mt-4" />
+                    </nav>
+                    <div class="grid w-full lg:grid-cols-2 gap-4">
+                        <div class="h-1/2">
+                            <div>
+                                <div
+                                    class="my-auto grid items-center justify-center gap-10 sm:grid-cols-2"
+                                >
+                                    @components.Card("Wind Direction", data.CurrentData.WindDirection)
+                                    @components.Card("Wind Speed", fmt.Sprintf("%.2f", data.CurrentData.WindSpeed) + "Km/hr")
+                                    @components.Card("Feels Like", fmt.Sprintf("%.2f", data.CurrentData.FeelsLike) + "°C")
+                                    @components.Card("Current Temperature", fmt.Sprintf("%.2f", data.CurrentData.Temperature) + "°C")
+                                </div>
+                            </div>
+                        </div>
+                        <div class="h-1/2">
+                            @components.DailyChart(data.DailyData.Labels, data.DailyData.TemperatureData, data.DailyData.FeelsLikeData)
+                        </div>
+                    </div>
+                    <br></br>
+                    <div class="w-full">
+                        <div class="flex w-full flex-col md:col-span-4">
+                            <h2 class="mb-4 text-xl md:text-2xl">
+                            7 Day Forcast
+                            </h2>
+                            <div class="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
+                                <div class="bg-white px-6">
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @components.Footer()
+    </html>
+}
