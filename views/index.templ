@@ -1,7 +1,6 @@
 package views
 
 import (
-    // "fmt"
     "go_backend/views/components"
     "time"
 	"fmt"
@@ -58,7 +57,7 @@ templ Index(data TemperatureDataViewModel) {
         @components.Header()
         <div class="flex h-screen flex-col md:flex-row md:overflow-hidden">
             @components.Sidebar()
-            <div class="flex-grow p-6 md:overflow-y-auto md:p-12">
+            <div class="flex-grow p-5 md:overflow-y-auto md:p-10">
                 <div class="container">
                     <nav aria-label="Breadcrumb" class="mb-6 block">
                         <ol class="flex text-xl md:text-2xl">
@@ -88,16 +87,21 @@ templ Index(data TemperatureDataViewModel) {
                     <br></br>
                     <div class="w-full">
                         <div class="flex w-full flex-col md:col-span-4">
-                            <h2 class="mb-4 text-xl md:text-2xl">
-                            Next 6 Day's Forcast
-                            </h2>
+                            <nav aria-label="Breadcrumb" class="mb-6 block">
+                                <ol class="flex text-xl md:text-2xl">
+                                    <li class="text-gray-500">
+                                    <a href="/">Next 6 Day's Forcast</a>
+                                    </li>
+                                </ol>
+                                <hr class="bg-black mt-4" />
+                            </nav>
                             <div class="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
                                 <div class="bg-white px-3">
                                    <div class="py-3 relative">
                                         <div class="text-center justify-between items-center flex" style="flex-flow: initial;">
                                             for _, item := range data.WeeklyData {
                                                 @components.WeatherCard(item.Day, 
-                                                fmt.Sprintf("%.2f", item.AvgTemp), 
+                                                item.AvgTemp, 
                                                 fmt.Sprintf("%.2f", item.MaxTemp), 
                                                 fmt.Sprintf("%.2f", item.MinTemp), 
                                                 fmt.Sprintf("%.2f", item.AvgPrecipitationChance), 

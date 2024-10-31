@@ -9,7 +9,6 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 import (
-	// "fmt"
 	"fmt"
 	"go_backend/views/components"
 	"time"
@@ -96,7 +95,7 @@ func Index(data TemperatureDataViewModel) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex-grow p-6 md:overflow-y-auto md:p-12\"><div class=\"container\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Temperature</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"grid w-full lg:grid-cols-2 gap-4\"><div class=\"h-1/2\"><div><div class=\"my-auto grid items-center justify-center gap-10 sm:grid-cols-2\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex-grow p-5 md:overflow-y-auto md:p-10\"><div class=\"container\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Temperature</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"grid w-full lg:grid-cols-2 gap-4\"><div class=\"h-1/2\"><div><div class=\"my-auto grid items-center justify-center gap-10 sm:grid-cols-2\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -124,13 +123,13 @@ func Index(data TemperatureDataViewModel) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><br><div class=\"w-full\"><div class=\"flex w-full flex-col md:col-span-4\"><h2 class=\"mb-4 text-xl md:text-2xl\">Next 6 Day's Forcast</h2><div class=\"flex grow flex-col justify-between rounded-xl bg-gray-50 p-4\"><div class=\"bg-white px-3\"><div class=\"py-3 relative\"><div class=\"text-center justify-between items-center flex\" style=\"flex-flow: initial;\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><br><div class=\"w-full\"><div class=\"flex w-full flex-col md:col-span-4\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Next 6 Day's Forcast</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"flex grow flex-col justify-between rounded-xl bg-gray-50 p-4\"><div class=\"bg-white px-3\"><div class=\"py-3 relative\"><div class=\"text-center justify-between items-center flex\" style=\"flex-flow: initial;\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		for _, item := range data.WeeklyData {
 			templ_7745c5c3_Err = components.WeatherCard(item.Day,
-				fmt.Sprintf("%.2f", item.AvgTemp),
+				item.AvgTemp,
 				fmt.Sprintf("%.2f", item.MaxTemp),
 				fmt.Sprintf("%.2f", item.MinTemp),
 				fmt.Sprintf("%.2f", item.AvgPrecipitationChance),
