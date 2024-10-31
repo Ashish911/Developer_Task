@@ -79,7 +79,7 @@ func Index(data TemperatureDataViewModel) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<!doctype html><html lang=\"en\"><style type=\"text/css\">\n            #weatherCard {\n                text-align: center;\n                display: grid;\n                gap: 16px;\n                grid-template-columns: 1fr; \n            }\n\n            @media (min-width: 846px) {\n                #weatherCard {\n                    grid-template-columns: repeat(2, 1fr); /* Two columns */\n                }\n            }\n\n            @media (min-width: 1150px) {\n                #weatherCard {\n                    grid-template-columns: repeat(3, 1fr); /* Three columns */\n                }\n            }\n\n            @media (min-width: 1440px) {\n                #weatherCard {\n                    grid-template-columns: repeat(4, 1fr); /* Four columns */\n                }\n            }\n\n            @media (min-width: 1500px) {\n                #weatherCard {\n                    display: flex;\n                    gap: 16px;\n                    justify-content: space-between;\n                    align-items: center;\n                }\n            }\n        </style>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -95,7 +95,7 @@ func Index(data TemperatureDataViewModel) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex-grow p-5 md:overflow-y-auto md:p-10\"><div class=\"container\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Temperature</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"grid w-full lg:grid-cols-2 gap-4\"><div class=\"h-1/2\"><div><div class=\"my-auto grid items-center justify-center gap-10 sm:grid-cols-2\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"flex-grow p-5 md:overflow-y-auto md:p-10\"><div class=\"container\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Temperature</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"grid w-full xl:grid-cols-2 gap-4\"><div class=\"h-1/2\"><div><div class=\"my-auto grid items-center justify-center gap-10 sm:grid-cols-2\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -123,7 +123,7 @@ func Index(data TemperatureDataViewModel) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><br><div class=\"w-full\"><div class=\"flex w-full flex-col md:col-span-4\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Next 6 Day's Forcast</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"flex grow flex-col justify-between rounded-xl bg-gray-50 p-4\"><div class=\"bg-white px-3\"><div class=\"py-3 relative\"><div class=\"text-center justify-between items-center flex\" style=\"flex-flow: initial;\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</div></div><br><div class=\"w-full\"><div class=\"flex w-full flex-col md:col-span-4\"><nav aria-label=\"Breadcrumb\" class=\"mb-6 block\"><ol class=\"flex text-xl md:text-2xl\"><li class=\"text-gray-500\"><a href=\"/\">Next 6 Day's Forcast</a></li></ol><hr class=\"bg-black mt-4\"></nav><div class=\"flex grow flex-col justify-between rounded-xl bg-gray-50 p-4\"><div class=\"bg-white px-3\"><div class=\"py-3 relative\"><div id=\"weatherCard\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

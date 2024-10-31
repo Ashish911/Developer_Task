@@ -54,6 +54,41 @@ type OldTemperatureDataViewModel struct {
 templ Index(data TemperatureDataViewModel) {
     <!DOCTYPE html>
     <html lang="en">
+        <style type="text/css">
+            #weatherCard {
+                text-align: center;
+                display: grid;
+                gap: 16px;
+                grid-template-columns: 1fr; 
+            }
+
+            @media (min-width: 846px) {
+                #weatherCard {
+                    grid-template-columns: repeat(2, 1fr); /* Two columns */
+                }
+            }
+
+            @media (min-width: 1150px) {
+                #weatherCard {
+                    grid-template-columns: repeat(3, 1fr); /* Three columns */
+                }
+            }
+
+            @media (min-width: 1440px) {
+                #weatherCard {
+                    grid-template-columns: repeat(4, 1fr); /* Four columns */
+                }
+            }
+
+            @media (min-width: 1500px) {
+                #weatherCard {
+                    display: flex;
+                    gap: 16px;
+                    justify-content: space-between;
+                    align-items: center;
+                }
+            }
+        </style>
         @components.Header()
         <div class="flex h-screen flex-col md:flex-row md:overflow-hidden">
             @components.Sidebar()
@@ -67,7 +102,7 @@ templ Index(data TemperatureDataViewModel) {
                         </ol>
                         <hr class="bg-black mt-4" />
                     </nav>
-                    <div class="grid w-full lg:grid-cols-2 gap-4">
+                    <div class="grid w-full xl:grid-cols-2 gap-4">
                         <div class="h-1/2">
                             <div>
                                 <div
@@ -98,7 +133,7 @@ templ Index(data TemperatureDataViewModel) {
                             <div class="flex grow flex-col justify-between rounded-xl bg-gray-50 p-4">
                                 <div class="bg-white px-3">
                                    <div class="py-3 relative">
-                                        <div class="text-center justify-between items-center flex" style="flex-flow: initial;">
+                                        <div id="weatherCard">
                                             for _, item := range data.WeeklyData {
                                                 @components.WeatherCard(item.Day, 
                                                 item.AvgTemp, 
