@@ -9,6 +9,7 @@ const feelsLikeData = JSON.parse(
 );
 const labels = JSON.parse(document.getElementById("chartLabels").textContent);
 
+// Creating gradients
 const temperatureGradient = ctx.createLinearGradient(0, 0, 0, 400);
 temperatureGradient.addColorStop(0, "rgba(75, 192, 192, 0.5)");
 temperatureGradient.addColorStop(1, "rgba(75, 192, 192, 0)");
@@ -20,7 +21,9 @@ feelsLikeGradient.addColorStop(1, "rgba(255, 99, 132, 0)");
 const temperatureChart = new Chart(ctx, {
   type: "line",
   data: {
+    // Labels basically what the label will look like.
     labels: labels,
+    // datasets with what it would look like with various customizations.
     datasets: [
       {
         label: "Feels Like",
@@ -54,6 +57,7 @@ const temperatureChart = new Chart(ctx, {
   },
   options: {
     responsive: true,
+    // Axis customization.
     scales: {
       x: {
         grid: { display: false },
@@ -75,6 +79,7 @@ const temperatureChart = new Chart(ctx, {
       },
     },
     plugins: {
+      // For Legend customization and tooltip customization.
       legend: {
         display: true,
         labels: {
@@ -98,6 +103,7 @@ const temperatureChart = new Chart(ctx, {
       },
     },
     animations: {
+      // Animation effects.
       tension: {
         duration: 1000,
         easing: "easeInOutQuad",
@@ -107,6 +113,7 @@ const temperatureChart = new Chart(ctx, {
       },
     },
     hover: {
+      // Hover customizations.
       mode: "nearest",
       intersect: true,
       onHover: function (e) {

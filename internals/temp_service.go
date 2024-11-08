@@ -11,6 +11,7 @@ func GenerateConditions(temperature float64) (WeatherCondition, float64) {
 	var condition WeatherCondition
 	var chance float64
 
+    // Basically generating fake or real like conditions and raining chances based on wether temperature.
 	switch {
 	case temperature >= 20:
 		condition = Sunny

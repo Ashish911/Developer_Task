@@ -54,41 +54,6 @@ type OldTemperatureDataViewModel struct {
 templ Index(data TemperatureDataViewModel) {
     <!DOCTYPE html>
     <html lang="en">
-        <style type="text/css">
-            #weatherCard {
-                text-align: center;
-                display: grid;
-                gap: 16px;
-                grid-template-columns: 1fr; 
-            }
-
-            @media (min-width: 846px) {
-                #weatherCard {
-                    grid-template-columns: repeat(2, 1fr); /* Two columns */
-                }
-            }
-
-            @media (min-width: 1150px) {
-                #weatherCard {
-                    grid-template-columns: repeat(3, 1fr); /* Three columns */
-                }
-            }
-
-            @media (min-width: 1440px) {
-                #weatherCard {
-                    grid-template-columns: repeat(4, 1fr); /* Four columns */
-                }
-            }
-
-            @media (min-width: 1500px) {
-                #weatherCard {
-                    display: flex;
-                    gap: 16px;
-                    justify-content: space-between;
-                    align-items: center;
-                }
-            }
-        </style>
         @components.Header()
         <div class="flex h-screen flex-col md:flex-row md:overflow-hidden">
             @components.Sidebar()

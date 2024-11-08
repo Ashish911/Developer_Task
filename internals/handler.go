@@ -12,18 +12,22 @@ import (
 
 const appTimeout = time.Second * 10
 
+// This is basically a function that will render the html template to the user.
 func render(ctx *gin.Context, status int, template templ.Component) error {
     ctx.Status(status)
     return template.Render(ctx.Request.Context(), ctx.Writer)
 }
 
+// This is a method that is attached to app config and returns a handlerFunc
 func (app *Config)  HandleStockData() gin.HandlerFunc {
     return func(ctx *gin.Context) {
 
+		// Basically creates a temperature request obj.
 		temperatureRequest := &TemperatureRequest{
 			Days: 7, 
 		}
 
+		// Get Temp data and err from GenerateTemperature function with request parameters sent.
 		tempdata, err := app.GenerateTemperature(temperatureRequest)
 
 		if err != nil {
@@ -32,6 +36,7 @@ func (app *Config)  HandleStockData() gin.HandlerFunc {
             return
         }
 
+		// Basically returns the data in json format.
 		ctx.JSON(http.StatusOK, tempdata)
 	}
 }
@@ -163,21 +168,29 @@ func (app *Config)  HandleStockData() gin.HandlerFunc {
 // 	return result
 // }
 
+// Method attached to app with return type as gin.HandlerFunc.
 func (app *Config) indexPageHandler() gin.HandlerFunc {
     return func(ctx *gin.Context) {
+		// Creating a new context with timeout. This function is utilized to release any resources when the operation is complete.
         _, cancel := context.WithTimeout(context.Background(), appTimeout)
+
+		// This defer basically scedules the cancel function to run at the end of the function. This is done to ensure that no more than 10 second takes to use this function.
         defer cancel()
 
+		// Basically creates a temperature request obj.
 		temperatureRequest := &TemperatureRequest{
             Days: 7, 
         }
 
+		// Get Temp data and err from GenerateTemperature function with request parameters sent.
         response, err := app.GenerateTemperature(temperatureRequest)
         if err != nil {
+			// Nil check if not nill show err in json format.
             ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
             return
         }
 
+		// Preparing data in various format and assigning it in a variable.
 		currentData := prepareCurrentData(response)
 		dailyChartData := prepareDailyData(response)
 		weeklyData := prepareWeeklyData(response)
